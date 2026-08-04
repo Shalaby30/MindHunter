@@ -34,7 +34,7 @@ export function TitleCard({ item, rank }) {
 
       <Link
         href={href}
-        className="relative block aspect-[2/3] overflow-hidden rounded-lg border border-border bg-muted transition-transform duration-300 group-hover:scale-[1.04] group-hover:border-foreground/20"
+        className="relative block aspect-[2/3] overflow-hidden rounded-lg border border-border bg-muted transition-shadow duration-300 hover:shadow-2xl hover:shadow-black/40"
       >
         {poster ? (
           <Image
@@ -71,7 +71,11 @@ export function TitleCard({ item, rank }) {
               )}
             >
               <Bookmark
-                className={cn("h-3.5 w-3.5", saved && "fill-current")}
+                className={cn(
+                  "h-3.5 w-3.5 -translate-y-2 opacity-0 transition duration-300",
+                  saved && "fill-current",
+                  "group-hover:translate-y-0 group-hover:opacity-100"
+                )}
               />
             </button>
             <button
@@ -87,7 +91,13 @@ export function TitleCard({ item, rank }) {
                   : "bg-white/10 text-white hover:bg-white/25"
               )}
             >
-              <Heart className={cn("h-3.5 w-3.5", liked && "fill-current")} />
+              <Heart
+                className={cn(
+                  "h-3.5 w-3.5 -translate-y-2 opacity-0 transition duration-300",
+                  liked && "fill-current",
+                  "group-hover:translate-y-0 group-hover:opacity-100"
+                )}
+              />
             </button>
             <button
               onClick={(e) => {
@@ -102,7 +112,13 @@ export function TitleCard({ item, rank }) {
                   : "bg-white/10 text-white hover:bg-white/25"
               )}
             >
-              <Clock className={cn("h-3.5 w-3.5", later && "fill-current")} />
+              <Clock
+                className={cn(
+                  "h-3.5 w-3.5 -translate-y-2 opacity-0 transition duration-300",
+                  later && "fill-current",
+                  "group-hover:translate-y-0 group-hover:opacity-100"
+                )}
+              />
             </button>
           </div>
 

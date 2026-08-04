@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Play, Plus, Check, Heart, Clock, X } from "lucide-react";
+import Link from "next/link";
+import { Play, Plus, Check, Heart, Clock, X, MonitorPlay } from "lucide-react";
 import { useLibrary } from "@/lib/library";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -22,11 +23,27 @@ export function DetailActions({ item, trailer }) {
   const liked = hydrated && inFavorites(item.id, item.mediaType);
   const later = hydrated && inWatchLater(item.id, item.mediaType);
 
+  const watchHref =
+    item.mediaType === "tv"
+      ? `/watch/tv/${item.id}?season=1&episode=1`
+      : `/watch/movie/${item.id}`;
+
   return (
     <>
       <div className="mt-6 flex flex-wrap items-center gap-3">
+        <Button size="lg" className="flex-col gap-1" asChild>
+          <Link href={watchHref} className="flex  items-center justify-center gap-1">
+            <MonitorPlay className="h-5 w-5" />
+            <span className="text-sm">Watch Now</span>
+          </Link>
+        </Button>
         {trailer && (
-          <Button size="lg" className="gap-2" onClick={() => setTrailerOpen(true)}>
+          <Button
+            size="lg"
+            variant="secondary"
+            className="gap-2"
+            onClick={() => setTrailerOpen(true)}
+          >
             <Play className="h-4 w-4 fill-current" />
             Watch Trailer
           </Button>

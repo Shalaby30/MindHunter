@@ -2,97 +2,108 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Star, Calendar, Clock, ChevronDown, ImageOff } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const STILL = (path) =>
   path ? `https://image.tmdb.org/t/p/w300${path}` : null;
 
-function EpisodeCard({ ep }) {
+function EpisodeCard({ ep, tvId }) {
   const [expanded, setExpanded] = useState(false);
   const still = STILL(ep.still);
 
   return (
-    <div className="flex gap-4 rounded-lg border border-border bg-card/60 p-3 transition-colors hover:border-foreground/20">
-      {/* episode still */}
-      <div className="relative hidden h-24 w-40 shrink-0 overflow-hidden rounded-md bg-muted sm:block">
-        {still ? (
-          <Image
-            src={still}
-            alt={ep.name}
-            fill
-            sizes="160px"
-            className="object-cover"
-          />
-        ) : (
-          <div className="flex h-full items-center justify-center text-muted-foreground">
-            <ImageOff className="h-5 w-5" />
-          </div>
-        )}
-        <span className="absolute left-1.5 top-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white">
-          E{ep.episodeNumber}
-        </span>
-      </div>
-
-      <div className="min-w-0 flex-1">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <p className="truncate text-sm font-medium">
-              <span className="mr-2 text-muted-foreground sm:hidden">
-                E{ep.episodeNumber}
-              </span>
-              {ep.name}
-            </p>
-            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-              {ep.airDate && (
-                <span className="inline-flex items-center gap-1">
-                  <Calendar className="h-3 w-3" />
-                  {ep.airDate}
-                </span>
-              )}
-              {ep.runtime && (
-                <span className="inline-flex items-center gap-1">
-                  <Clock className="h-3 w-3" />
-                  {ep.runtime}m
-                </span>
-              )}
-              {ep.rating && (
-                <span className="inline-flex items-center gap-1 text-yellow-400">
-                  <Star className="h-3 w-3 fill-current" />
-                  {ep.rating}
-                </span>
-              )}
+    <Link
+      href={`/watch/tv/${tvId}?season=${ep.seasonNumber}&episode=${ep.episodeNumber}`}
+      className="group block"
+    >
+      <div className="flex gap-4 rounded-lg border border-border bg-card/60 p-3 transition-colors hover:border-foreground/20 hover:bg-white/5">
+        {/* episode still */}
+        <div className="relative hidden h-24 w-40 shrink-0 overflow-hidden rounded-md bg-muted sm:block">
+          {still ? (
+            <Image
+              src={still}
+              alt={ep.name}
+              fill
+              sizes="160px"
+              className="object-cover"
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-muted-foreground">
+              <ImageOff className="h-5 w-5" />
             </div>
+          )}
+          <span className="absolute left-1.5 top-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[10px] font-bold text-white">
+            E{ep.episodeNumber}
+          </span>
+        </div>
+
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="truncate text-sm font-medium text-white transition-colors group-hover:text-primary">
+                <span className="mr-2 text-muted-foreground sm:hidden">
+                  E{ep.episodeNumber}
+                </span>
+                {ep.name}
+              </p>
+              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                {ep.airDate && (
+                  <span className="inline-flex items-center gap-1">
+                    <Calendar className="h-3 w-3" />
+                    {ep.airDate}
+                  </span>
+                )}
+                {ep.runtime && (
+                  <span className="inline-flex items-center gap-1">
+                    <Clock className="h-3 w-3" />
+                    {ep.runtime}m
+                  </span>
+                )}
+                {ep.rating && (
+                  <span className="inline-flex items-center gap-1 text-yellow-400">
+                    <Star className="h-3 w-3 fill-current" />
+                    {ep.rating}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {ep.overview && (
+              <button
+                type="button"
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  setExpanded((v) => !v);
+                }}
+                aria-label={expanded ? "Collapse overview" : "Expand overview"}
+                className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <ChevronDown
+                  className={cn(
+                    "h-4 w-4 transition-transform duration-200",
+                    expanded && "rotate-180"
+                  )}
+                />
+              </button>
+            )}
           </div>
 
           {ep.overview && (
-            <button
-              onClick={() => setExpanded((v) => !v)}
-              aria-label={expanded ? "Collapse overview" : "Expand overview"}
-              className="shrink-0 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            <p
+              className={cn(
+                "mt-1.5 text-xs leading-relaxed text-muted-foreground",
+                expanded ? "" : "line-clamp-2"
+              )}
             >
-              <ChevronDown
-                className={cn(
-                  "h-4 w-4 transition-transform duration-200",
-                  expanded && "rotate-180"
-                )}
-              />
-            </button>
+              {ep.overview}
+            </p>
           )}
         </div>
-
-        {ep.overview && (
-          <p
-            className={cn(
-              "mt-1.5 text-xs leading-relaxed text-muted-foreground",
-              expanded ? "" : "line-clamp-2"
-            )}
-          >
-            {ep.overview}
-          </p>
-        )}
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -216,7 +227,7 @@ export function SeasonBrowser({ tvId, seasons }) {
               {/* fixed-height scrollable list so long shows don't take over the page */}
               <div className="max-h-[560px] space-y-3 overflow-y-auto pr-2 [scrollbar-width:thin] [scrollbar-color:#3f3f46_transparent]">
                 {data.episodes.map((ep) => (
-                  <EpisodeCard key={ep.id} ep={ep} />
+                  <EpisodeCard key={ep.id} ep={ep} tvId={tvId} />
                 ))}
               </div>
 
