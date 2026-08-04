@@ -12,6 +12,22 @@ function buildPlayerUrl(provider, mediaType, id, season, episode) {
       ? mediaType === "movie"
         ? `https://vidfast.vc/movie/${id}`
         : `https://vidfast.vc/tv/${id}/${season}/${episode}`
+      : provider === "111movies"
+      ? mediaType === "movie"
+        ? `https://111movies.net/movie/${id}`
+        : `https://111movies.net/tv/${id}/${season}/${episode}`
+      : provider === "vidup"
+      ? mediaType === "movie"
+        ? `https://vidup.to/movie/${id}`
+        : `https://vidup.to/tv/${id}/${season}/${episode}`
+      : provider === "vidsrc"
+      ? mediaType === "movie"
+        ? `https://vidsrc-embed.ru/embed/movie/${id}`
+        : `https://vidsrc-embed.ru/embed/tv/${id}/${season}-${episode}`
+      : provider === "vidzee"
+      ? mediaType === "movie"
+        ? `https://player.vidzee.wtf/embed/movie/${id}`
+        : `https://player.vidzee.wtf/embed/tv/${id}/${season}/${episode}`
       : mediaType === "movie"
         ? `https://player.videasy.net/movie/${id}`
         : `https://player.videasy.net/tv/${id}/${season}/${episode}`;

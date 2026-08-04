@@ -31,8 +31,8 @@ export function DetailActions({ item, trailer }) {
   return (
     <>
       <div className="mt-6 flex flex-wrap items-center gap-3">
-        <Button size="lg" className="flex-col gap-1" asChild>
-          <Link href={watchHref} className="flex  items-center justify-center gap-1">
+        <Button size="lg" asChild>
+          <Link href={watchHref} className="flex items-center justify-center gap-2">
             <MonitorPlay className="h-5 w-5" />
             <span className="text-sm">Watch Now</span>
           </Link>
