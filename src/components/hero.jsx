@@ -66,7 +66,7 @@ export function Hero({ items, genres }) {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent" />
 
-      <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-4 pb-24 sm:px-6">
+      <div className="relative z-10 mx-auto flex h-full flex-col justify-end px-4 pb-24 sm:px-6">
         <div className="max-w-2xl">
           <div className="mb-3 flex items-center gap-2">
             <Badge># {index + 1} Trending this week</Badge>

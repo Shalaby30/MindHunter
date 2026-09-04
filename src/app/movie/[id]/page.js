@@ -37,7 +37,7 @@ export default async function MoviePage({ params }) {
       <Navbar />
       <main className="flex-1">
         <DetailHero item={movie} />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="px-4 sm:px-6">
           <WatchProviders providers={providers} />
           <CastRow cast={movie.cast} />
         </div>

@@ -45,7 +45,7 @@ export default async function PersonPage({ params }) {
     <>
       <Navbar />
       <main className="flex-1">
-        <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 sm:px-6">
+        <div className="px-4 pb-8 pt-24 sm:px-6">
           {/* header */}
           <div className="flex flex-col gap-8 sm:flex-row">
             <div className="relative mx-auto h-64 w-44 shrink-0 overflow-hidden rounded-xl border border-border bg-muted sm:mx-0 sm:h-80 sm:w-56">

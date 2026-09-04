@@ -81,7 +81,7 @@ export default async function AnimeDetailPage({ params }) {
     <>
       <Navbar />
       <main className="flex-1">
-        <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 sm:px-6">
+        <div className="px-4 pb-8 pt-24 sm:px-6">
           <div className="rounded-3xl border border-border bg-card/70 p-6 shadow-sm sm:p-8">
             <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
               <div>

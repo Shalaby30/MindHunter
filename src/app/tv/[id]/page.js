@@ -38,7 +38,7 @@ export default async function TvPage({ params }) {
       <Navbar />
       <main className="flex-1">
         <DetailHero item={show} />
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="px-4 sm:px-6">
           <WatchProviders providers={providers} />
           <SeasonBrowser tvId={show.id} seasons={show.seasonList} />
           <CastRow cast={show.cast} />

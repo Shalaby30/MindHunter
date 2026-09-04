@@ -5,7 +5,7 @@ export default function DetailLoading() {
       <div className="relative h-[60vh] animate-pulse bg-white/5" />
 
       {/* Content skeleton */}
-      <div className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:px-6">
+      <div className="space-y-6 px-4 py-8 sm:px-6">
         <div className="flex gap-6">
           <div className="h-64 w-44 flex-shrink-0 animate-pulse rounded-lg bg-white/5" />
           <div className="flex-1 space-y-4">

@@ -5,7 +5,7 @@ export default function HomeLoading() {
       <div className="relative h-[80vh] animate-pulse bg-white/5" />
 
       {/* Content rows skeleton */}
-      <div className="mx-auto max-w-7xl space-y-8 px-4 py-8 sm:px-6">
+      <div className="space-y-8 px-4 py-8 sm:px-6">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i}>
             <div className="mb-4 h-5 w-32 animate-pulse rounded bg-white/5" />

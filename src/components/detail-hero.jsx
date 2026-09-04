@@ -26,7 +26,7 @@ export function DetailHero({ item }) {
         <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-transparent" />
       </div>
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-8 px-4 pt-24 sm:px-6 md:flex-row md:pt-32">
+      <div className="relative mx-auto flex flex-col gap-8 px-4 pt-24 sm:px-6 md:flex-row md:pt-32">
         {/* poster */}
         <div className="hidden w-56 shrink-0 sm:block md:w-64">
           <div className="relative aspect-[2/3] overflow-hidden rounded-xl border border-border shadow-2xl shadow-black/60">

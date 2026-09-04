@@ -100,7 +100,7 @@ export default function MoodPage() {
 
   return (
     <main className="flex-1">
-      <div className="mx-auto max-w-7xl px-4 pb-8 pt-24 sm:px-6">
+      <div className="px-4 pb-8 pt-24 sm:px-6">
         <header className="mb-8 text-center">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             What&apos;s your mood tonight?

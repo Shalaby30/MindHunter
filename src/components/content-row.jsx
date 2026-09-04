@@ -39,7 +39,7 @@ export function ContentRow({ title, subtitle, items, ranked = false }) {
 
   return (
     <section className="relative py-5">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="px-4 sm:px-6">
         <div className="mb-3 flex items-end justify-between">
           <div>
             <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
@@ -52,7 +52,7 @@ export function ContentRow({ title, subtitle, items, ranked = false }) {
         </div>
       </div>
 
-      <div className="group/row relative mx-auto max-w-7xl">
+      <div className="group/row relative">
         <button
           onClick={() => scrollBy(-1)}
           aria-label="Scroll left"

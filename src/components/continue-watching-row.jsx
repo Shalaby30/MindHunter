@@ -12,7 +12,7 @@ export function ContinueWatchingRow() {
 
   return (
     <div className="space-y-2">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="px-4 sm:px-6">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold tracking-tight">Continue Watching</h2>
