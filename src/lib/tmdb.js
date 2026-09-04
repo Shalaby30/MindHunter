@@ -1,6 +1,5 @@
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-const TMDB_TOKEN =
-  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0ZWNhNDNmZDQwYmIyMTc0YjBlYmY3ODI1MzBkNjZhYyIsIm5iZiI6MTcyNTM4ODg1OC40NjY1NjYsInN1YiI6IjY2YWM0ZGU1YzQ0ZDZjMjAzZDYzMWE3ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.PUiqDxRUk7aB9BTN_tsnkJj3c-4TbZHJ59UaYIGgRHk";
+const TMDB_TOKEN = process.env.TMDB_READ_TOKEN;
 
 export const IMG = {
   poster: (path, size = "w500") =>
