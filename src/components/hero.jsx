@@ -42,7 +42,7 @@ export function Hero({ items, genres }) {
   };
 
   return (
-    <section className="relative h-[85vh] min-h-[520px] w-full overflow-hidden">
+    <section className="relative h-screen min-h-[520px] w-full overflow-hidden">
       {slides.map((slide, i) => (
         <div
           key={slide.id}
@@ -99,14 +99,23 @@ export function Hero({ items, genres }) {
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
+            <Link
+              href={`/watch/${current.mediaType}/${current.id}`}
+              size="lg"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-accent px-6 text-sm font-semibold text-white shadow-lg shadow-accent/20 transition-all hover:bg-accent/80 hover:shadow-accent/30"
+            >
+              <Play className="h-4 w-4 fill-current" />
+              Watch Now
+            </Link>
             <Button
               size="lg"
+              variant="secondary"
               className="gap-2"
               disabled={loadingTrailer}
               onClick={playTrailer}
             >
               <Play className="h-4 w-4 fill-current" />
-              {loadingTrailer ? "Loading…" : "Watch Trailer"}
+              {loadingTrailer ? "Loading…" : "Trailer"}
             </Button>
             <Button
               size="lg"

@@ -15,13 +15,17 @@ export function ContinueWatchingRow() {
       <div className="px-4 sm:px-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold tracking-tight">Continue Watching</h2>
-            <p className="text-xs text-muted-foreground">Pick up where you left off</p>
+            <h2 className="text-lg font-semibold tracking-tight">
+              Continue Watching
+            </h2>
+            <p className="text-xs text-muted-foreground">
+              Pick up where you left off
+            </p>
           </div>
         </div>
       </div>
 
-      <div className="no-scrollbar flex gap-3 overflow-x-auto px-4 pb-2 sm:px-6">
+      <div className="no-scrollbar flex gap-3  px-4 pb-2 sm:px-6">
         {items.map((item) => (
           <div
             key={item.key}
