@@ -22,6 +22,7 @@ export default function SearchPage() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [error, setError] = useState(false);
   const requestId = useRef(0);
   const inputRef = useRef(null);
 
@@ -52,15 +53,21 @@ export default function SearchPage() {
     }
     const id = ++requestId.current;
     setLoading(true);
+    setError(false);
 
     fetch(`/api/search?q=${encodeURIComponent(query)}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then((data) => {
         if (requestId.current !== id) return;
         setResults(data.results || []);
         setSearched(true);
       })
-      .catch(() => {})
+      .catch(() => {
+        if (requestId.current === id) setError(true);
+      })
       .finally(() => {
         if (requestId.current === id) setLoading(false);
       });
@@ -136,7 +143,13 @@ export default function SearchPage() {
             </div>
           )}
 
-          {!loading && searched && filtered.length === 0 && (
+          {error && !loading && (
+            <p className="py-20 text-center text-sm text-red-400">
+              Something went wrong. Please try again.
+            </p>
+          )}
+
+          {!loading && !error && searched && filtered.length === 0 && (
             <p className="py-20 text-center text-sm text-muted-foreground">
               No results for &ldquo;{query}&rdquo;
               {filter !== "all" &&
@@ -145,7 +158,7 @@ export default function SearchPage() {
             </p>
           )}
 
-          {!loading && filtered.length > 0 && (
+          {!loading && !error && filtered.length > 0 && (
             <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
               {filtered.map((item) => (
                 <div

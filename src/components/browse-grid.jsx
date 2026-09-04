@@ -37,6 +37,7 @@ export function BrowseGrid({ mediaType, genres, sortOptions, initial }) {
   const [items, setItems] = useState(initial.results);
   const [totalPages, setTotalPages] = useState(initial.totalPages);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [searchInput, setSearchInput] = useState(activeQuery);
   const requestId = useRef(0);
   const gridTopRef = useRef(null);
@@ -45,6 +46,7 @@ export function BrowseGrid({ mediaType, genres, sortOptions, initial }) {
   useEffect(() => {
     const id = ++requestId.current;
     setLoading(true);
+    setError(false);
 
     const params = new URLSearchParams({
       type: mediaType,
@@ -55,13 +57,18 @@ export function BrowseGrid({ mediaType, genres, sortOptions, initial }) {
     if (activeQuery) params.set("q", activeQuery);
 
     fetch(`/api/discover?${params}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then((data) => {
         if (requestId.current !== id) return;
         setItems(data.results);
         setTotalPages(data.totalPages);
       })
-      .catch(() => {})
+      .catch(() => {
+        if (requestId.current === id) setError(true);
+      })
       .finally(() => {
         if (requestId.current === id) setLoading(false);
       });
@@ -195,7 +202,13 @@ export function BrowseGrid({ mediaType, genres, sortOptions, initial }) {
         ))}
       </div>
 
-      {!loading && items.length === 0 && (
+      {error && !loading && (
+        <p className="py-20 text-center text-sm text-red-400">
+          Something went wrong. Please try again.
+        </p>
+      )}
+
+      {!loading && !error && items.length === 0 && (
         <p className="py-20 text-center text-sm text-muted-foreground">
           Nothing found. Try a different search or filter.
         </p>

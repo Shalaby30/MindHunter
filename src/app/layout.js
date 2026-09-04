@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { LibraryProvider } from "@/lib/library";
 import { AuthProvider } from "@/lib/auth";
 import { QuickAccessDropdown } from "@/components/quick-access-dropdown";
+import { ToastProvider } from "@/components/toast";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,8 +30,10 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <AuthProvider>
           <LibraryProvider>
-            {children}
-            <QuickAccessDropdown />
+            <ToastProvider>
+              {children}
+              <QuickAccessDropdown />
+            </ToastProvider>
           </LibraryProvider>
         </AuthProvider>
       </body>

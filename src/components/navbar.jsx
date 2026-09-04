@@ -12,7 +12,6 @@ const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/movies", label: "Movies" },
   { href: "/tv", label: "TV Shows" },
-  { href: "https://streamz-rho.vercel.app/", label: "Live sport" },
   { href: "/mood", label: "Mood" },
   { href: "/duel", label: "Duel" },
   { href: "/my-list", label: "My List" },

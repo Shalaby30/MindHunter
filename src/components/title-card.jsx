@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Bookmark, Heart, Clock, Film, Tv } from "lucide-react";
 import { IMG } from "@/lib/tmdb";
 import { useLibrary } from "@/lib/library";
+import { useToast } from "@/components/toast";
 import { cn } from "@/lib/utils";
 
 export function TitleCard({ item, rank }) {
@@ -17,6 +19,9 @@ export function TitleCard({ item, rank }) {
     inWatchLater,
     hydrated,
   } = useLibrary();
+  const { addToast } = useToast();
+
+  const [imgError, setImgError] = useState(false);
 
   const saved = hydrated && inWishlist(item.id, item.mediaType);
   const liked = hydrated && inFavorites(item.id, item.mediaType);
@@ -36,13 +41,14 @@ export function TitleCard({ item, rank }) {
         href={href}
         className="relative block aspect-[2/3] overflow-hidden rounded-lg border border-border bg-muted transition-shadow duration-300 hover:shadow-2xl hover:shadow-black/40"
       >
-        {poster ? (
+        {poster && !imgError ? (
           <Image
             src={poster}
             alt={item.title}
             fill
             sizes="(max-width: 640px) 150px, 170px"
             className="object-cover"
+            onError={() => setImgError(true)}
           />
         ) : (
           <div className="flex h-full items-center justify-center text-muted-foreground">
@@ -61,6 +67,7 @@ export function TitleCard({ item, rank }) {
               onClick={(e) => {
                 e.preventDefault();
                 toggleWishlist(item);
+                addToast(inWishlist(item.id, item.mediaType) ? "Removed from wishlist" : "Added to wishlist");
               }}
               aria-label="Toggle wishlist"
               className={cn(
@@ -82,6 +89,7 @@ export function TitleCard({ item, rank }) {
               onClick={(e) => {
                 e.preventDefault();
                 toggleFavorite(item);
+                addToast(inFavorites(item.id, item.mediaType) ? "Removed from favorites" : "Added to favorites");
               }}
               aria-label="Toggle favorite"
               className={cn(
@@ -103,6 +111,7 @@ export function TitleCard({ item, rank }) {
               onClick={(e) => {
                 e.preventDefault();
                 toggleWatchLater(item);
+                addToast(inWatchLater(item.id, item.mediaType) ? "Removed from watch later" : "Added to watch later");
               }}
               aria-label="Toggle watch later"
               className={cn(

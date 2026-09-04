@@ -52,6 +52,7 @@ export default function MoodPage() {
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const requestId = useRef(0);
   const gridTopRef = useRef(null);
 
@@ -71,14 +72,20 @@ export default function MoodPage() {
     }
     const id = ++requestId.current;
     setLoading(true);
+    setError(false);
 
     fetch(`/api/mood?mood=${mood}&type=${type}&page=${page}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then((d) => {
         if (requestId.current !== id) return;
         setData(d);
       })
-      .catch(() => {})
+      .catch(() => {
+        if (requestId.current === id) setError(true);
+      })
       .finally(() => {
         if (requestId.current === id) setLoading(false);
       });
@@ -180,7 +187,13 @@ export default function MoodPage() {
               </div>
             )}
 
-            {!loading && data && (
+            {error && !loading && (
+              <p className="py-20 text-center text-sm text-red-400">
+                Something went wrong. Please try again.
+              </p>
+            )}
+
+            {!loading && !error && data && (
               <>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                   {data.results.map((item) => (

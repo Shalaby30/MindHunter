@@ -78,7 +78,7 @@ function DuelCard({ item, onPick, side }) {
 }
 
 export default function DuelPage() {
-  const [phase, setPhase] = useState("setup"); // setup | loading | duel | winner
+  const [phase, setPhase] = useState("setup"); // setup | loading | duel | winner | error
   const [type, setType] = useState("movie");
   const [pool, setPool] = useState([]);
   const [pair, setPair] = useState([null, null]);
@@ -107,7 +107,7 @@ export default function DuelPage() {
       setWinner(null);
       setPhase("duel");
     } catch {
-      setPhase("setup");
+      setPhase("error");
     }
   };
 
@@ -175,6 +175,19 @@ export default function DuelPage() {
         {phase === "loading" && (
           <div className="flex flex-1 items-center justify-center">
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        )}
+
+        {/* error */}
+        {phase === "error" && (
+          <div className="flex flex-1 flex-col items-center justify-center text-center">
+            <p className="mb-4 text-sm text-red-400">
+              Failed to load titles. Please try again.
+            </p>
+            <Button size="lg" className="gap-2" onClick={() => setPhase("setup")}>
+              <RotateCcw className="h-4 w-4" />
+              Try Again
+            </Button>
           </div>
         )}
 
