@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { LibraryProvider } from "@/lib/library";
 import { AuthProvider } from "@/lib/auth";
+import { ContinueWatchingProvider } from "@/lib/continue-watching";
 import { QuickAccessDropdown } from "@/components/quick-access-dropdown";
 import { ToastProvider } from "@/components/toast";
 import "./globals.css";
@@ -30,10 +31,12 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <AuthProvider>
           <LibraryProvider>
-            <ToastProvider>
-              {children}
-              <QuickAccessDropdown />
-            </ToastProvider>
+            <ContinueWatchingProvider>
+              <ToastProvider>
+                {children}
+                <QuickAccessDropdown />
+              </ToastProvider>
+            </ContinueWatchingProvider>
           </LibraryProvider>
         </AuthProvider>
       </body>

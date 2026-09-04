@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { ContentRow } from "@/components/content-row";
+import { ContinueWatchingRow } from "@/components/continue-watching-row";
 import { Footer } from "@/components/footer";
 import {
   getTrendingAll,
@@ -38,6 +39,7 @@ export default async function Home() {
         <Hero items={trendingAll} genres={genres} />
 
         <div className="-mt-10 relative z-10 space-y-2">
+          <ContinueWatchingRow />
           <ContentRow
             title="Top 10 This Week"
             subtitle="What everyone's watching right now"

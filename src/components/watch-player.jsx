@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Play, Check, Tv, Clock, Calendar } from "lucide-react";
+import { useContinueWatching } from "@/lib/continue-watching";
 import { cn } from "@/lib/utils";
 
 function buildPlayerUrl(provider, mediaType, id, season, episode) {
@@ -69,6 +70,7 @@ export function WatchPlayer({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { addOrUpdate } = useContinueWatching();
 
   const [selectedSeason, setSelectedSeason] = useState(initialSeason || 1);
   const [selectedEpisode, setSelectedEpisode] = useState(initialEpisode || 1);
@@ -193,7 +195,10 @@ export function WatchPlayer({
               <div className="aspect-video relative w-full">
                 {!iframeActive && (
                   <button
-                    onClick={() => setIframeActive(true)}
+                    onClick={() => {
+                      setIframeActive(true);
+                      addOrUpdate(item, selectedSeason, selectedEpisode);
+                    }}
                     className="absolute inset-0 z-10 group"
                   >
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80" />
